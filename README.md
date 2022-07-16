@@ -8,7 +8,7 @@ Django Rest Framework
 
 ### feedback_front
 
-React Hooks
+React Hooks  
 Typescript
 
 ### feedback_db
