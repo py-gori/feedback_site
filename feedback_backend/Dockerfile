@@ -8,4 +8,6 @@ RUN pip install -r requirements.txt
 ADD . /backend/
 ENTRYPOINT [ "bash", "entry_point.sh" ]
 # CMD [ "python", "feedback_backend/manage.py", "runserver", "0.0.0.0:8000" ]
-CMD [ "uwsgi", "--http", ":8000", "--module", "feedback_backend.config.wsgi"]
+#CMD [ "uwsgi", "--http", ":8000", "--module", "feedback_backend.config.wsgi"]
+CMD [ "uwsgi", "--ini", "/backend/uwsgi.ini"]
+#CMD [ "uwsgi", "--socket", ":8001", "--chdir", "/backend/feedback_backend/", "--module", "config.wsgi"]

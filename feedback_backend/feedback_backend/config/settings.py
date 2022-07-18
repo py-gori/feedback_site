@@ -15,7 +15,7 @@ from pathlib import Path
 
 CONFIG_DIR = os.path.dirname(os.path.abspath(__file__))
 env = environ.Env()
-env.read_env(os.path.join(CONFIG_DIR, '.env.dev'))
+env.read_env(os.path.join(CONFIG_DIR, '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,9 +28,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SECRET_KEY = 'django-insecure-4+ody8mvx34)(dr@%1x9kxde$4htno39g^v@f_ur8j21jom$+q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if env('ENV') == 'dev':
+    DEBUG = True
+else:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+]
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -70,7 +77,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://localhost:80",
+    "http://0.0.0.0:8000",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -145,7 +154,13 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'feedback_backend/config/static')
 STATIC_URL = 'static/'
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+# STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = env('GS_BUCKET_NAME')
+GS_PROJECT_ID = env('GCP_PROJECT_ID')
+# STATIC_URL = 'https://storage.googleapis.com/feedback_site/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -182,13 +197,6 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_info(service_a
 # GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 #     os.path.join(BASE_DIR, 'feedback_backend/feedback_site_serviceaccount.json')
 # )
-
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-# STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = env('GS_BUCKET_NAME')
-GS_PROJECT_ID = env('GCP_PROJECT_ID')
-# STATIC_URL = 'https://storage.googleapis.com/feedback_site/'
-
 
 # Logging
 LOGGING = {

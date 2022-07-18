@@ -13,14 +13,26 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     # command: npm start
-  
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:8000
+    volumes:
+      - ./feedback_backend/feedback_backend/config/static:/static
+    working_dir: /backend
+    depends_on:
+      - backend
+    
   backend:
     image: feedback_backend:latest
     container_name: feedback_backend
     env_file: env_file.env
     working_dir: /backend
-    ports:
-      - 8000:8000
+    expose:
+      - "8001"
+    # ports:
+    #   - 8000:8000
 
   db:
     build: ./feedback_db
@@ -29,8 +41,8 @@ services:
       - db-store:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: orion
-      MYSQL_PASSWORD: orion
+      MYSQL_USER: feedback
+      MYSQL_PASSWORD: feedback
 
 volumes:
   db-store:

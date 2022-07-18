@@ -19,7 +19,7 @@ case "${ENV}" in
         ln -s /backend/feedback_backend/config/.env.dev /backend/feedback_backend/config/.env
         ;;
     *)
-        ln -s /backend/feedback_backend/config/.env.dev /backend/feedback_backend/config/.env
+        ln -s /backend/feedback_backend/config/.env.prd /backend/feedback_backend/config/.env
         ;;
 esac
 
