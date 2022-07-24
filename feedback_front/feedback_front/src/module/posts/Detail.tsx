@@ -19,7 +19,8 @@ import { postDetailSelector } from '@/recoil/posts/selectors';
 import { usePost, useDetail } from '@/recoil/posts/dispatcher';
 import Form from '@/module/elements/Form';
 import compareValues from '@/utils/compareValues';
-import diffInDays from '@/utils/diffInDays';
+// import diffInDays from '@/utils/diffInDays';
+import PostDate from '@/utils/PostDate';
 import ModalElement from '@/module/elements/ModalElement';
 
 import CategoryFilter from './components/CategoryFilter';
@@ -37,6 +38,7 @@ const Detail: React.FC = () => {
   const user = useRecoilValue(userDataAtom);
   const { getPostStatus } = usePost();
   const { patchVote } = useDetail();
+  const postDate = new PostDate(postDetail.created_at);
 
   useEffect(() => {
     setListComments(postDetail.comments);
@@ -48,13 +50,13 @@ const Detail: React.FC = () => {
     patchVote(postId, formData);
   };
 
-  const formatDate = (date: string) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = (`0${d.getMonth() + 1}`).slice(-2);
-    const day = (`0${d.getDay() + 1}`).slice(-2);
-    return `${year}-${month}-${day}`;
-  };
+  // const formatDate = (date: string) => {
+  //   const d = new Date(date);
+  //   const year = d.getFullYear();
+  //   const month = (`0${d.getMonth() + 1}`).slice(-2);
+  //   const day = (`0${d.getDate()}`).slice(-2);
+  //   return `${year}-${month}-${day}`;
+  // };
 
   const handleSort = async (order: string) => {
     const comments = listComments.slice().sort(compareValues('created_at', order));
@@ -176,9 +178,11 @@ const Detail: React.FC = () => {
                     </div>
                     <div className="post-daate">
                       <p className="contributor-date" title={postDetail.created_at}>
-                        {formatDate(postDetail.created_at)}
+                        {/* {formatDate(postDetail.created_at)} */}
+                        {postDate.formatDate()}
                         -
-                        <span>{diffInDays(postDetail.created_at)}</span>
+                        {/* <span>{diffInDays(postDetail.created_at)}</span> */}
+                        <span>{postDate.diffInDays()}</span>
                       </p>
                     </div>
                   </div>

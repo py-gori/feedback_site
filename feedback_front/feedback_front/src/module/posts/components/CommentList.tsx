@@ -24,7 +24,7 @@ import { useDetail } from '@/recoil/posts/dispatcher';
 import type { Comment, User } from '@/module/types';
 import Form from '@/module/elements/Form';
 import ModalElement from '@/module/elements/ModalElement';
-import diffInDays from '@/utils/diffInDays';
+import PostDate from '@/utils/PostDate';
 import CreateComment from './CreateComment';
 
 type Inputs = {
@@ -91,6 +91,7 @@ const CommentList: React.FC<{comments: Comment[], postId: number}> = ({ comments
   };
 
   const commentItem = (comment: Comment, index: number): JSX.Element => {
+    const postDate = new PostDate(comment.created_at);
     return (
       <>
         <ListItemAvatar>
@@ -155,7 +156,7 @@ const CommentList: React.FC<{comments: Comment[], postId: number}> = ({ comments
           </ModalElement>
           <div>
             <ul>
-              <li className="activity-list-inline-item" title={comment.created_at}>{diffInDays(comment.created_at)}</li>
+              <li className="activity-list-inline-item" title={comment.created_at}>{postDate.diffInDays()}</li>
               <li className="activity-list-inline-item">
                 <button style={{ outline: 'none' }} type="button" onClick={() => handleClick(comment.id)}>
                   <Icon sx={{ fontSize: '18px' }}>

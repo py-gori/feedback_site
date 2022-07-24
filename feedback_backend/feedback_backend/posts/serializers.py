@@ -24,6 +24,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
     hearted = serializers.SerializerMethodField(read_only=True)
     images = CommentImageSerializer(many=True)
+    created_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     class Meta:
         model = Comment
@@ -59,6 +60,7 @@ class PostModelSerializer(serializers.ModelSerializer):
     comment_count = serializers.SerializerMethodField(read_only=True)
     vote_count = serializers.SerializerMethodField(read_only=True)
     images = PostImageSerializer(many=True)
+    created_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     class Meta:
         model = Post
@@ -124,6 +126,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
     voted = serializers.SerializerMethodField(read_only=True)
     user = serializers.SerializerMethodField(read_only=True)
     images = serializers.SerializerMethodField(read_only=True)
+    created_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     class Meta:
         model = Post
@@ -157,6 +160,7 @@ class CommentModelSerializer(serializers.ModelSerializer):
     # user = serializers.SerializerMethodField(read_only=True)
     # hearted_users = serializers.SerializerMethodField(read_only=True)
     images = CommentImageSerializer(many=True)
+    created_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     class Meta:
         model = Comment
