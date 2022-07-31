@@ -3,6 +3,6 @@ steps:
     args:
       [
         "build",
-        "--tag=gcr.io/$PROJECT_ID/fb_web",
+        "--tag=gcr.io/mydev-306208/fb_web",
         "--file=./feedback_front/Dockerfile",
       ]
