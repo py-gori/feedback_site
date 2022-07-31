@@ -1,8 +1,8 @@
 version: "3.1"
 services:
   front:
-    image: feedback_front:latest
-    container_name: feedback_front
+    image: fb_web:latest
+    container_name: fb_web
     # volumes:
     #   - ./feedback_front:/front
     #working_dir: /front
