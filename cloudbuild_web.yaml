@@ -6,8 +6,8 @@ steps:
         "-t",
         "gcr.io/$PROJECT_ID/fb_web",
         "-f",
-        "./feedback_front/Dockerfile",
-        "./feedback_front",
+        "./fb_web/Dockerfile",
+        "./fb_web",
       ]
 
   - name: "gcr.io/cloud-builders/docker"
