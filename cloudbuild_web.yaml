@@ -1,11 +1,3 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
-    args:
-      [
-        "build",
-        "-t",
-        "gcr.io/$PROJECT_ID/fb_web",
-        "-f",
-        ".Dockerfile",
-        "./feedback_front",
-      ]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/fb_web", "./feedback_front"]
