@@ -10,5 +10,17 @@ const config = {
   appId: process.env.REACT_APP_FIREBASE_SENDER_ID,
 };
 
+// const jsonPath = '/feedback_front/firebase_account.json';
+// const serviceAccount = JSON.parse(jsonPath);
+
+// const config = {
+//   apiKey: serviceAccount.apiKey,
+//   authDomain: serviceAccount.authDomain,
+//   projectId: serviceAccount.projectId,
+//   storageBucket: serviceAccount.storageBucket,
+//   messagingSenderId: serviceAccount.messagingSenderId,
+//   appId: serviceAccount.appId,
+// };
+
 initializeApp(config);
 // export const app = initializeApp(config)
