@@ -1,3 +1,3 @@
 steps:
   - name: "gcr.io/$PROJECT_ID/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/fb_web", "-f", "."]
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/fb_web", "-f", "./feedback_front"]
