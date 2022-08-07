@@ -154,7 +154,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'feedback_backend/config/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'config/static')
 STATIC_URL = 'static/'
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 # STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
