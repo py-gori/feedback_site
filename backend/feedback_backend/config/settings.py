@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+from google.oauth2 import service_account
 import environ
 import os
 from pathlib import Path
@@ -19,7 +20,8 @@ env.read_env(os.path.join(CONFIG_DIR, '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -168,7 +170,6 @@ GS_PROJECT_ID = env('GCP_PROJECT_ID')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Google Storage Settings
-from google.oauth2 import service_account
 # service_account_key = {
 #     'type': 'service_account',
 #     'project_id': env('GCP_PROJECT_ID'),
@@ -192,8 +193,9 @@ service_account_key = {
     "token_uri": "https://oauth2.googleapis.com/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-83iqu%40mydev-306208.iam.gserviceaccount.com"
-  }
-GS_CREDENTIALS = service_account.Credentials.from_service_account_info(service_account_key)
+}
+GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+    service_account_key)
 # GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 #     os.path.join(BASE_DIR, 'feedback_backend/feedback_site_serviceaccount.json')
 # )
