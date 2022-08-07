@@ -15,19 +15,22 @@ services:
     # command: npm start
 
   nginx:
-    build: ./nginx
+    build: ./backend/nginx
     ports:
       - 8000:8000
     volumes:
-      - ./feedback_backend/feedback_backend/config/static:/static
+      - ./backend/feedback_backend/config/static:/static
     working_dir: /backend
     depends_on:
       - backend
     
   backend:
-    image: feedback_backend:latest
+    # image: feedback_backend:latest
+    build: ./backend/feedback_backend
     container_name: feedback_backend
-    env_file: env_file.env
+    env_file: ./backend/feedback_backend/env_file.env
+    volumes:
+      - ./backend/feedback_backend:/backend/
     working_dir: /backend
     expose:
       - "8001"
