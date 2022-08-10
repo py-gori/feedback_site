@@ -9,17 +9,17 @@ function wait_mysql() {
 case "${ENV}" in
     prd)
         wait_mysql
-        ln -s /backend/config/.env.prd /backend/config/.env
+        ln -s /app/config/.env.prd /app/config/.env
         ;;
     stg)
         wait_mysql
-        ln -s /backend/config/.env.stg /backend/config/.env
+        ln -s /app/config/.env.stg /app/config/.env
         ;;
     dev)
-        ln -s /backend/config/.env.dev /backend/config/.env
+        ln -s /app/config/.env.dev /app/config/.env
         ;;
     *)
-        ln -s /backend/config/.env.prd /backend/config/.env
+        ln -s /app/config/.env.prd /app/config/.env
         ;;
 esac
 

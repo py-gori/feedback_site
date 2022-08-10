@@ -1,41 +1,52 @@
 version: "3.1"
 services:
-  front:
-    image: fb_web:latest
-    container_name: fb_web
-    # volumes:
-    #   - ./feedback_front:/front
-    #working_dir: /front
+  feedback-web:
+    container_name: feedback_web
+    # image: fb_web:latest
+    build: ./frontend/feedback_web
+    volumes:
+      - ./frontend/feedback_web:/web
+    working_dir: /web
     ports:
-      - 3000:80
+      - 3000:3000
     tty: true
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
-    # command: npm start
+    command: npm run start
+    
+  frontend-server:
+    container_name: nginx_frontend
+    build: ./frontend/nginx
+    ports:
+      - 3001:3001
+    depends_on:
+      - feedback-web
 
-  nginx:
+  feedback-app:
+    container_name: feedback_app
+    # image: feedback_backend:latest
+    build: ./backend/feedback_backend
+    env_file: ./backend/feedback_backend/env_file.env
+    volumes:
+      - ./backend/feedback_backend:/app/
+    working_dir: /app
+    command: gunicorn --bind :8001 config.wsgi:application
+    tty: true
+    stdin_open: true
+    # ports:
+    #   - 8000:8000
+
+  backend-server:
+    container_name: nginx_backend
     build: ./backend/nginx
     ports:
-      - 8000:8000
+      - 8000:80
     volumes:
       - ./backend/feedback_backend/config/static:/static
     working_dir: /backend
     depends_on:
-      - backend
-    
-  backend:
-    # image: feedback_backend:latest
-    build: ./backend/feedback_backend
-    container_name: feedback_backend
-    env_file: ./backend/feedback_backend/env_file.env
-    volumes:
-      - ./backend/feedback_backend:/backend/
-    working_dir: /backend
-    expose:
-      - "8001"
-    # ports:
-    #   - 8000:8000
+      - feedback-app
 
   db:
     build: ./feedback_db
