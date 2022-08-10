@@ -1,6 +1,8 @@
 FROM python:3.9.7
 ENV PYTHONUNBUFFERED 1
 RUN apt update && apt install -y sqlite3 vim less default-mysql-client
+# Django ER図生成用
+RUN apt install -y libgraphviz-dev graphviz pkg-config
 # RUN mkdir /app
 WORKDIR /app
 COPY requirements.txt ./

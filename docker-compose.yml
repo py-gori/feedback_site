@@ -2,8 +2,8 @@ version: "3.1"
 services:
   feedback-web:
     container_name: feedback_web
-    # image: fb_web:latest
-    build: ./frontend/feedback_web
+    image: node:16.15.1
+    # build: ./frontend/feedback_web
     volumes:
       - ./frontend/feedback_web:/web
     working_dir: /web

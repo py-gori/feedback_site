@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'firebase_admin',
     'storages',
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
