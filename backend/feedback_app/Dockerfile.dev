@@ -10,8 +10,8 @@ RUN python -m pip install --upgrade pip setuptools
 RUN pip install -r requirements.txt
 COPY . ./
 ENTRYPOINT [ "bash", "entry_point.sh" ]
-# CMD [ "python", "feedback_backend/manage.py", "runserver", "0.0.0.0:8000" ]
-#CMD [ "uwsgi", "--http", ":8000", "--module", "feedback_backend.config.wsgi"]
+# CMD [ "python", "feedback_app/manage.py", "runserver", "0.0.0.0:8000" ]
+#CMD [ "uwsgi", "--http", ":8000", "--module", "feedback_app.config.wsgi"]
 # CMD [ "uwsgi", "--ini", "/app/uwsgi.ini"]
-#CMD [ "uwsgi", "--socket", ":8001", "--chdir", "/backend/feedback_backend/", "--module", "config.wsgi"]
+#CMD [ "uwsgi", "--socket", ":8001", "--chdir", "/backend/feedback_app/", "--module", "config.wsgi"]
 EXPOSE 8000

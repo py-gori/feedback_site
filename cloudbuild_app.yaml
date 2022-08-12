@@ -6,7 +6,7 @@ steps:
         "-t",
         "gcr.io/$PROJECT_ID/feedback_app",
         "-f",
-        "./backend/feedback_app/Dockerfile-prd",
+        "./backend/feedback_app/Dockerfile.prd",
         "./backend/feedback_app",
       ]
 

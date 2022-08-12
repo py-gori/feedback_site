@@ -1,3 +1,3 @@
-# feedback_backend
+# feedback_app
 
-docker build -t feedback_backend .
+docker build -t feedback_app .

@@ -1,5 +1,5 @@
 """
-WSGI config for feedback_backend project.
+WSGI config for feedback_app project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

@@ -3,7 +3,9 @@ services:
   feedback-web:
     container_name: feedback_web
     image: node:16.15.1
-    # build: ./frontend/feedback_web
+    # build:
+      # context: ./frontend/feedback_web
+      # dockerfile: Dockerfile.dev
     env_file: ./frontend/feedback_web/.env.development
     volumes:
       - ./frontend/feedback_web:/web
@@ -18,7 +20,9 @@ services:
     
   frontend-server:
     container_name: nginx_frontend
-    build: ./frontend/nginx
+    build:
+      context: ./frontend/nginx
+      dockerfile: Dockerfile.dev
     ports:
       - 3001:3001
     depends_on:
@@ -26,11 +30,12 @@ services:
 
   feedback-app:
     container_name: feedback_app
-    # image: feedback_backend:latest
-    build: ./backend/feedback_backend
-    env_file: ./backend/feedback_backend/env_file.env
+    build:
+      context: ./backend/feedback_app
+      dockerfile: Dockerfile.dev
+    env_file: ./backend/feedback_app/env_file.env
     volumes:
-      - ./backend/feedback_backend:/app/
+      - ./backend/feedback_app:/app/
     working_dir: /app
     command: gunicorn --bind :8001 config.wsgi:application
     tty: true
@@ -40,17 +45,21 @@ services:
 
   backend-server:
     container_name: nginx_backend
-    build: ./backend/nginx
+    build:
+      context: ./backend/nginx
+      dockerfile: Dockerfile.dev
     ports:
       - 8000:80
     volumes:
-      - ./backend/feedback_backend/config/static:/static
+      - ./backend/feedback_app/config/static:/static
     working_dir: /backend
     depends_on:
       - feedback-app
 
   db:
-    build: ./feedback_db
+    build:
+      context: ./feedback_db
+      dockerfile: Dockerfile.dev
     container_name: feedback_db
     volumes:
       - db-store:/var/lib/mysql

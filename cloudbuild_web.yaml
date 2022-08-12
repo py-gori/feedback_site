@@ -6,7 +6,7 @@ steps:
         "-t",
         "gcr.io/$PROJECT_ID/feedback_web",
         "-f",
-        "./frontend/feedback_web/Dockerfile-prd",
+        "./frontend/feedback_web/Dockerfile.prd",
         "./frontend/feedback_web",
         "--build-arg",
         "REACT_APP_FIREBASE_API_KEY=$$REACT_APP_FIREBASE_API_KEY",
