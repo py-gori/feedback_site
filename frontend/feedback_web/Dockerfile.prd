@@ -16,6 +16,6 @@ ENV REACT_APP_URL_API=$REACT_APP_URL_API
 RUN npm run build
 
 FROM nginx
-COPY --from=0 /app/build /usr/share/nginx/html
+COPY --from=0 /web/build /usr/share/nginx/html
 COPY ../nginx/default.conf /etc/nginx/conf.d
 EXPOSE 80
