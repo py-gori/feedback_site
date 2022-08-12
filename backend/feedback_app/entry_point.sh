@@ -1,7 +1,7 @@
 #!/bin/sh
 
 function wait_mysql() {
-    until mysqladmin -ufeedback -pfeedback -h feedback_db ping ; do
+    until mysqladmin -ufeedback -p${DB_PASSWORD} -h feedback_db ping ; do
     sleep 1
     done
 }
