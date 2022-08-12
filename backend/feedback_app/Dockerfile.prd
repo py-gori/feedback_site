@@ -2,16 +2,12 @@ FROM python:3.9.7
 ENV PYTHONUNBUFFERED 1
 RUN apt update && apt install -y sqlite3 vim less default-mysql-client
 # Django ER図生成用
-RUN apt install -y libgraphviz-dev graphviz pkg-config
-# RUN mkdir /app
+# RUN apt install -y libgraphviz-dev graphviz pkg-config
 WORKDIR /app
 COPY requirements.txt ./
 RUN python -m pip install --upgrade pip setuptools
 RUN pip install -r requirements.txt
 COPY . ./
 ENTRYPOINT [ "bash", "entry_point.sh" ]
-# CMD [ "python", "feedback_app/manage.py", "runserver", "0.0.0.0:8000" ]
-#CMD [ "uwsgi", "--http", ":8000", "--module", "feedback_app.config.wsgi"]
-# CMD [ "uwsgi", "--ini", "/app/uwsgi.ini"]
 CMD [ "uwsgi", "--socket", ":8001", "--chdir", "/app", "--module", "config.wsgi"]
 EXPOSE 8000

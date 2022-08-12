@@ -16,7 +16,7 @@ from pathlib import Path
 
 CONFIG_DIR = os.path.dirname(os.path.abspath(__file__))
 env = environ.Env()
-env.read_env(os.path.join(CONFIG_DIR, '.env'))
+# env.read_env(os.path.join(CONFIG_DIR, '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,10 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(
 SECRET_KEY = 'django-insecure-4+ody8mvx34)(dr@%1x9kxde$4htno39g^v@f_ur8j21jom$+q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if env('ENV') == 'dev':
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = env('DJANGO_DEBUG_MODE')
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -173,18 +170,6 @@ GS_PROJECT_ID = env('GCP_PROJECT_ID')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Google Storage Settings
-# service_account_key = {
-#     'type': 'service_account',
-#     'project_id': env('GCP_PROJECT_ID'),
-#     'private_key_id': env('GCP_PRIVATE_KEY_ID'),
-#     'private_key': env('GCP_PRIVATE_KEY'),
-#     'client_email': env('GCP_CLIENT_EMAIL'),
-#     'client_id': env('GCP_CLIENT_ID'),
-#     'auth_uri': 'https://accounts.google.com/o/oauth2/auth',
-#     'token_uri': 'https://oauth2.googleapis.com/token',
-#     'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
-#     'client_x509_cert_url': env('GCP_CLIENT_CERT_URL')
-# }
 service_account_key = {
     'type': 'service_account',
     'project_id': env.get_value('GCP_PROJECT_ID', str),
