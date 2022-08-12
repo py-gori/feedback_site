@@ -4,6 +4,7 @@ services:
     container_name: feedback_web
     image: node:16.15.1
     # build: ./frontend/feedback_web
+    env_file: ./frontend/feedback_web/.env.development
     volumes:
       - ./frontend/feedback_web:/web
     working_dir: /web
