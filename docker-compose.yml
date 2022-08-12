@@ -60,13 +60,10 @@ services:
     build:
       context: ./feedback_db
       dockerfile: Dockerfile.dev
+    env_file: ./feedback_db/.env.dev
     container_name: feedback_db
     volumes:
       - db-store:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: feedback
-      MYSQL_PASSWORD: feedback
 
 volumes:
   db-store:
