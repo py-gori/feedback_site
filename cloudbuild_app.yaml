@@ -10,7 +10,6 @@ steps:
         --build-arg ENV=prd \
         --build-arg GCP_PROJECT_ID=$$GCP_PROJECT_ID \
         --build-arg GCP_PRIVATE_KEY_ID=$$GCP_PRIVATE_KEY_ID \
-        --build-arg GCP_PRIVATE_KEY=$$GCP_PRIVATE_KEY \
         --build-arg GCP_CLIENT_EMAIL=$$GCP_CLIENT_EMAIL \
         --build-arg GCP_CLIENT_ID=$$GCP_CLIENT_ID \
         --build-arg GCP_CLIENT_CERT_URL=$$GCP_CLIENT_CERT_URL \
