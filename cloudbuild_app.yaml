@@ -1,0 +1,14 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/feedback_app",
+        "-f",
+        "./backend/feedback_app/Dockerfile-prd",
+        "./backend/feedback_app",
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/feedback_app"]
