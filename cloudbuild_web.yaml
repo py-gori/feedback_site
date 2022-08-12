@@ -1,28 +1,43 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "bash"
     args:
-      [
-        "build",
-        "-t",
-        "gcr.io/$PROJECT_ID/feedback_web",
-        "-f",
-        "./frontend/feedback_web/Dockerfile.prd",
-        "./frontend/feedback_web",
-        "--build-arg",
-        "REACT_APP_FIREBASE_API_KEY=$$REACT_APP_FIREBASE_API_KEY",
-        "--build-arg",
-        "REACT_APP_FIREBASE_AUTH_DOMAIN=$$REACT_APP_FIREBASE_AUTH_DOMAIN",
-        "--build-arg",
-        "REACT_APP_FIREBASE_PROJECT_ID=$$REACT_APP_FIREBASE_PROJECT_ID",
-        "--build-arg",
-        "REACT_APP_FIREBASE_STORAGE_BUCKET=$$REACT_APP_FIREBASE_STORAGE_BUCKET",
-        "--build-arg",
-        "REACT_APP_FIREBASE_MESSAGE_SENDER_ID=$$REACT_APP_FIREBASE_MESSAGE_SENDER_ID",
-        "--build-arg",
-        "REACT_APP_FIREBASE_APP_ID=$$REACT_APP_FIREBASE_APP_ID",
-        "--build-arg",
-        "REACT_APP_URL_API=$$REACT_APP_URL_API",
-      ]
+      - -c
+      - |
+        docker build -t gcr.io/$PROJECT_ID/feedback_web \
+        -f ./frontend/feedback_web/Dockerfile.prd \
+        ./frontend/feedback_web \
+        --build-arg REACT_APP_FIREBASE_API_KEY=$$REACT_APP_FIREBASE_API_KEY \
+        --build-arg REACT_APP_FIREBASE_AUTH_DOMAIN=$$REACT_APP_FIREBASE_AUTH_DOMAIN \
+        --build-arg REACT_APP_FIREBASE_PROJECT_ID=$$REACT_APP_FIREBASE_PROJECT_ID \
+        --build-arg REACT_APP_FIREBASE_STORAGE_BUCKET=$$REACT_APP_FIREBASE_STORAGE_BUCKET \
+        --build-arg REACT_APP_FIREBASE_MESSAGE_SENDER_ID=$$REACT_APP_FIREBASE_MESSAGE_SENDER_ID \
+        --build-arg REACT_APP_FIREBASE_APP_ID=$$REACT_APP_FIREBASE_APP_ID \
+        --build-arg REACT_APP_URL_API=$$REACT_APP_URL_API
+
+      # [
+      #   "-c",
+      #   "build",
+      #   "-t",
+      #   "gcr.io/$PROJECT_ID/feedback_web",
+      #   "-f",
+      #   "./frontend/feedback_web/Dockerfile.prd",
+      #   "./frontend/feedback_web",
+      #   "--build-arg",
+      #   "REACT_APP_FIREBASE_API_KEY=$$REACT_APP_FIREBASE_API_KEY",
+      #   "--build-arg",
+      #   "REACT_APP_FIREBASE_AUTH_DOMAIN=$$REACT_APP_FIREBASE_AUTH_DOMAIN",
+      #   "--build-arg",
+      #   "REACT_APP_FIREBASE_PROJECT_ID=$$REACT_APP_FIREBASE_PROJECT_ID",
+      #   "--build-arg",
+      #   "REACT_APP_FIREBASE_STORAGE_BUCKET=$$REACT_APP_FIREBASE_STORAGE_BUCKET",
+      #   "--build-arg",
+      #   "REACT_APP_FIREBASE_MESSAGE_SENDER_ID=$$REACT_APP_FIREBASE_MESSAGE_SENDER_ID",
+      #   "--build-arg",
+      #   "REACT_APP_FIREBASE_APP_ID=$$REACT_APP_FIREBASE_APP_ID",
+      #   "--build-arg",
+      #   "REACT_APP_URL_API=$$REACT_APP_URL_API",
+      # ]
     secretEnv:
       [
         "REACT_APP_FIREBASE_API_KEY",
