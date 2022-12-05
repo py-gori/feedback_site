@@ -1,0 +1,69 @@
+version: "3.1"
+services:
+  feedback-web:
+    container_name: feedback_web
+    image: node:16.15.1
+    # build:
+      # context: ./frontend/feedback_web
+      # dockerfile: Dockerfile.dev
+    env_file: ./frontend/feedback_web/.env.development
+    volumes:
+      - ./frontend/feedback_web:/web
+    working_dir: /web
+    ports:
+      - 3000:3000
+    tty: true
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run start
+    
+  frontend-server:
+    container_name: nginx_frontend
+    build:
+      context: ./frontend/nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3001:3001
+    depends_on:
+      - feedback-web
+
+  feedback-app:
+    container_name: feedback_app
+    build:
+      context: ./backend/feedback_app
+      dockerfile: Dockerfile.dev
+    env_file: ./backend/feedback_app/config/.env.dev
+    volumes:
+      - ./backend/feedback_app:/app/
+    working_dir: /app
+    # command: gunicorn --bind :8001 config.wsgi:application
+    tty: true
+    stdin_open: true
+    # ports:
+    #   - 8000:8000
+
+  backend-server:
+    container_name: nginx_backend
+    build:
+      context: ./backend/nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:80
+    volumes:
+      - ./backend/feedback_app/config/static:/static
+    working_dir: /backend
+    depends_on:
+      - feedback-app
+
+  db:
+    build:
+      context: ./feedback_db
+      dockerfile: Dockerfile.dev
+    env_file: ./feedback_db/.env.dev
+    container_name: feedback_db
+    volumes:
+      - db-store:/var/lib/mysql
+
+volumes:
+  db-store:

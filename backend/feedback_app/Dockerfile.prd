@@ -1,0 +1,41 @@
+FROM python:3.9.7
+
+ARG GCP_PROJECT_ID
+ARG GCP_PRIVATE_KEY_ID
+ARG GCP_PRIVATE_KEY
+ARG GCP_CLIENT_EMAIL
+ARG GCP_CLIENT_ID
+ARG GCP_CLIENT_CERT_URL
+ARG GS_BUCKET_NAME
+ARG DB_PASSWORD
+
+ENV GCP_PROJECT_ID $GCP_PROJECT_ID
+ENV GCP_PRIVATE_KEY_ID $GCP_PRIVATE_KEY_ID
+ENV GCP_PRIVATE_KEY $GCP_PRIVATE_KEY
+ENV GCP_CLIENT_EMAIL $GCP_CLIENT_EMAIL
+ENV GCP_CLIENT_ID $GCP_CLIENT_ID
+ENV GCP_CLIENT_CERT_URL $GCP_CLIENT_CERT_URL
+ENV GS_BUCKET_NAME $GS_BUCKET_NAME
+ENV DB_PASSWORD $DB_PASSWORD
+
+ENV ENV prd
+ENV DB_ENGINE django.db.backends.mysql
+ENV DB_NAME feedback
+ENV DB_USER feedback
+ENV DB_HOST feedback-db
+ENV DB_PORT 3306
+ENV DJANGO_DEBUG_MODE False
+ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTING_MODULE config.settings
+
+RUN apt update && apt install -y sqlite3 vim less default-mysql-client
+# Django ER図生成用
+RUN apt install -y libgraphviz-dev graphviz pkg-config
+WORKDIR /app
+COPY requirements.txt ./
+RUN python -m pip install --upgrade pip setuptools
+RUN pip install -r requirements.txt
+COPY . ./
+ENTRYPOINT [ "bash", "entry_point.sh" ]
+CMD [ "uwsgi", "--socket", ":8001", "--chdir", "/app", "--module", "config.wsgi"]
+EXPOSE 8000

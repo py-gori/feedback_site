@@ -1,0 +1,42 @@
+[
+  {
+    "model": "posts.post",
+    "fields": {
+      "types": "feedbacks",
+      "status": 0,
+      "title": "スマホ対応してほしい",
+      "post_text": "テストコンテンツです",
+      "user": 1,
+      "voted": [],
+      "images": "",
+      "created_at": "2022-01-22 00:00:00.067357",
+      "updated_at": "2022-01-22 00:00:00.067357"
+    }
+  },
+  {
+    "model": "posts.post",
+    "fields": {
+      "types": "feedbacks",
+      "status": 1,
+      "title": "添付画像のサイズが小さい",
+      "post_text": "添付画像のサイズが小さくて見にくいので\n大きくしてほしい。",
+      "user": 1,
+      "voted": [1],
+      "images": "",
+      "created_at": "2022-01-22 00:00:00.067357",
+      "updated_at": "2022-01-22 00:00:00.067357"
+    }
+  },
+  {
+    "model": "posts.comment",
+    "fields": {
+      "post_id": 1,
+      "user_id": 1,
+      "comment_text": "コメントテスト1",
+      "hearted": [1],
+      "images": "",
+      "created_at": "2022-01-25 00:00:00.067357",
+      "updated_at": "2022-01-25 00:00:00.067357"
+    }
+  }
+]
